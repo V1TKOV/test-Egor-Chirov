@@ -114,7 +114,7 @@ document.querySelectorAll(".difficulty").forEach(btn=>btn.addEventListener("clic
 }));
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a;}
 function startQuiz(){
- questions=shuffle(banks[level]).map(q=>({...q,a:[...q.a]}));index=0;score=0;correct=0;answersLog=[];startedAt=Date.now();locked=false;
+ questions=shuffle(banks[level]).map(q=>{const options=shuffle(q.a.map((text,i)=>({text,correct:i===q.c})));return {...q,a:options.map(o=>o.text),c:options.findIndex(o=>o.correct)};});index=0;score=0;correct=0;answersLog=[];startedAt=Date.now();locked=false;
  $("scoreDisplay").textContent="0";$("levelPill").textContent=levelNames[level];showScreen($("quizScreen"));renderQuestion();
 }
 function renderQuestion(){
