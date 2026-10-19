@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f5f7">
+<title>Знайка — тест на общие знания</title>
+<style>
+:root{--bg:#f5f5f7;--card:rgba(255,255,255,.82);--text:#1d1d1f;--muted:#6e6e73;--blue:#0071e3;--blue2:#147ce5;--line:rgba(0,0,0,.08);--green:#248a3d;--red:#d70015;--shadow:0 20px 60px rgba(0,0,0,.07)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#fff 0%,var(--bg) 58%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:24px 16px 36px}
+button,select{font:inherit}button{cursor:pointer;border:0;transition:transform .18s,background .18s,box-shadow .18s}button:active{transform:scale(.98)}button:focus-visible,select:focus-visible{outline:3px solid #80bfff;outline-offset:3px}
+header{width:min(900px,100%);display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}.brand{font-weight:750;font-size:20px;letter-spacing:-.6px;display:flex;gap:10px;align-items:center}.logo{width:34px;height:34px;border-radius:11px;background:linear-gradient(145deg,#58b5ff,#0066d6);color:#fff;display:grid;place-items:center;font-weight:800;box-shadow:0 5px 14px #0071e333}.header-tag{font-size:13px;color:var(--muted);background:#ffffffb8;border:1px solid var(--line);padding:8px 12px;border-radius:999px}
+main{width:min(760px,100%)}.screen{display:none;animation:rise .45s cubic-bezier(.2,.75,.25,1) both}.screen.active{display:block}@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}@keyframes pop{0%{transform:scale(.94);opacity:.3}100%{transform:scale(1);opacity:1}}@keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
+.hero{text-align:center;padding:34px 16px 28px}.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);font-weight:750}.hero h1{font-size:clamp(38px,7vw,62px);line-height:1.02;letter-spacing:-2.8px;margin:16px 0 14px;font-weight:760}.hero p{color:var(--muted);font-size:17px;line-height:1.55;max-width:500px;margin:0 auto}.panel{background:var(--card);border:1px solid rgba(255,255,255,.95);border-radius:28px;box-shadow:var(--shadow);padding:26px;backdrop-filter:blur(20px)}.settings-label{font-size:14px;font-weight:700;margin-bottom:12px;display:block}.difficulty-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.difficulty{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px 10px;text-align:left;color:var(--text)}.difficulty strong{display:block;font-size:15px;margin-bottom:5px}.difficulty small{color:var(--muted);font-size:12px}.difficulty.selected{border:2px solid var(--blue);background:#f0f7ff;padding:14px 9px;box-shadow:0 0 0 3px #0071e30c}.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}.meta{background:#f5f5f7;border-radius:15px;padding:14px;text-align:center}.meta strong{font-size:21px;display:block;letter-spacing:-.6px}.meta span{font-size:12px;color:var(--muted);display:block;margin-top:4px}.primary{background:var(--blue);color:#fff;border-radius:999px;padding:15px 22px;font-weight:700;box-shadow:0 8px 18px #0071e326}.primary:hover{background:#0077ed;box-shadow:0 10px 24px #0071e333}.wide{width:100%}.subtle{background:#f0f0f2;color:var(--text);border-radius:999px;padding:13px 18px;font-weight:650}.subtle:hover{background:#e6e6e9}.best-score{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px;padding:15px 2px 0}.best-score strong{color:var(--text);font-size:15px}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.pill{background:#fff;border:1px solid var(--line);padding:9px 12px;border-radius:999px;color:var(--muted);font-size:13px;font-weight:650}.pill strong{color:var(--text)}.progress-track{height:6px;background:#e5e5ea;border-radius:99px;overflow:hidden;margin-bottom:26px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#0071e3,#58b5ff);border-radius:99px;transition:width .45s ease}.question-count{color:var(--blue);font-size:13px;font-weight:750;letter-spacing:.4px}.question{font-size:clamp(24px,4.5vw,34px);line-height:1.2;letter-spacing:-1px;font-weight:730;margin:12px 0 24px}.answers{display:grid;gap:11px}.answer{display:flex;align-items:center;gap:13px;text-align:left;padding:16px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--text);font-size:15px;min-height:58px}.answer:hover:not(:disabled){border-color:#80bfff;background:#f7fbff;transform:translateY(-1px)}.letter{flex:0 0 30px;height:30px;border-radius:10px;display:grid;place-items:center;background:#f0f0f2;color:#5e5e63;font-weight:750;font-size:13px}.answer.correct{border-color:#3ca55c;background:#effaf2}.answer.correct .letter{background:var(--green);color:#fff}.answer.wrong{border-color:#ff7b83;background:#fff2f2}.answer.wrong .letter{background:var(--red);color:#fff}.answer:disabled{cursor:default}.feedback{display:none;margin-top:17px;padding:14px 16px;border-radius:15px;font-size:14px;line-height:1.5;animation:rise .25s both}.feedback.show{display:block}.feedback.good{background:#effaf2;color:#17652a}.feedback.bad{background:#fff2f2;color:#9b0010}.quiz-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px}.hint{font-size:12px;color:var(--muted)}
+.result{text-align:center;padding:14px 0 4px}.result-icon{width:76px;height:76px;margin:0 auto 18px;border-radius:25px;background:linear-gradient(145deg,#e4f3ff,#c4e3ff);display:grid;place-items:center;font-size:35px;animation:pop .5s both}.result h2{font-size:clamp(34px,6vw,48px);letter-spacing:-2px;margin:0 0 8px}.result p{color:var(--muted);margin:0 auto;max-width:460px;line-height:1.5}.score-circle{width:150px;height:150px;border-radius:50%;margin:25px auto;background:conic-gradient(var(--blue) var(--angle),#e8e8ed 0);display:grid;place-items:center;position:relative}.score-circle:before{content:"";position:absolute;inset:9px;background:#fff;border-radius:50%}.score-inside{position:relative}.score-inside strong{display:block;font-size:37px;letter-spacing:-1.5px}.score-inside span{color:var(--muted);font-size:12px}.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 24px}.stat{background:#f5f5f7;border-radius:16px;padding:15px 8px}.stat strong{font-size:22px;display:block}.stat span{font-size:12px;color:var(--muted)}.result-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.review{margin-top:22px;text-align:left}.review summary{font-weight:700;cursor:pointer;padding:16px 0}.review-item{border-top:1px solid var(--line);padding:14px 0}.review-item strong{display:block;font-size:14px;margin-bottom:7px}.review-item p{font-size:13px;margin:4px 0;color:var(--muted)}.right{color:var(--green)!important}.wrong-text{color:var(--red)!important}
+footer{margin-top:auto;padding-top:32px;color:#99999f;font-size:12px;text-align:center}
+@media(max-width:520px){body{padding:16px 12px 24px}header{margin-bottom:16px}.hero{padding:30px 5px 22px}.hero h1{letter-spacing:-1.8px}.panel{padding:19px;border-radius:23px}.difficulty-grid{gap:6px}.difficulty{padding:12px 8px}.difficulty.selected{padding:11px 7px}.difficulty strong{font-size:13px}.difficulty small{font-size:11px}.meta-grid{gap:7px}.meta{padding:12px 5px}.meta strong{font-size:18px}.quiz-top{align-items:flex-start}.question{letter-spacing:-.6px}.answer{padding:13px;gap:10px}.quiz-actions{align-items:stretch}.quiz-actions .primary{width:auto;flex:1}.hint{max-width:100px}.result-stats{gap:6px}.stat{padding:13px 4px}.stat strong{font-size:19px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">З</span> Знайка</div>
+  <div class="header-tag">Интерактивный тест</div>
+</header>
+<main>
+  <section class="screen active" id="startScreen">
+    <div class="hero">
+      <div class="eyebrow">Проверь себя</div>
+      <h1>Много ли ты<br>знаешь?</h1>
+      <p>15 вопросов из разных областей знаний. Выбери уровень сложности и узнай свой результат.</p>
+    </div>
+    <div class="panel">
+      <span class="settings-label">Выбери сложность</span>
+      <div class="difficulty-grid" role="group" aria-label="Уровень сложности">
+        <button class="difficulty selected" data-level="easy" aria-pressed="true"><strong>Лёгкий</strong><small>Для разогрева</small></button>
+        <button class="difficulty" data-level="medium" aria-pressed="false"><strong>Средний</strong><small>Нужно подумать</small></button>
+        <button class="difficulty" data-level="hard" aria-pressed="false"><strong>Сложный</strong><small>Вызов себе</small></button>
+      </div>
+      <div class="meta-grid">
+        <div class="meta"><strong>15</strong><span>вопросов</span></div>
+        <div class="meta"><strong>∞</strong><span>попыток</span></div>
+        <div class="meta"><strong>★</strong><span>рекорды</span></div>
+      </div>
+      <button class="primary wide" id="startBtn">Начать тест <span aria-hidden="true">→</span></button>
+      <div class="best-score"><span>Твой лучший результат</span><strong id="bestDisplay">Пока нет</strong></div>
+    </div>
+  </section>
+
+  <section class="screen" id="quizScreen" aria-live="polite">
+    <div class="quiz-top">
+      <span class="pill" id="levelPill">Лёгкий уровень</span>
+      <span class="pill">Очки: <strong id="scoreDisplay">0</strong></span>
+    </div>
+    <div class="progress-track" aria-label="Прогресс теста"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="panel">
+      <div class="question-count" id="questionCount">ВОПРОС 1 ИЗ 15</div>
+      <h2 class="question" id="questionText">Вопрос появится здесь</h2>
+      <div class="answers" id="answers"></div>
+      <div class="feedback" id="feedback" role="status"></div>
+      <div class="quiz-actions">
+        <span class="hint" id="pointsHint">За правильный ответ: 10 очков</span>
+        <button class="primary" id="nextBtn" disabled>Далее →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="resultScreen">
+    <div class="hero">
+      <div class="eyebrow">Тест завершён</div>
+    </div>
+    <div class="panel">
+      <div class="result">
+        <div class="result-icon" id="resultIcon">🏆</div>
+        <h2 id="resultTitle">Отличная работа!</h2>
+        <p id="resultMessage">Вот твой результат.</p>
+        <div class="score-circle" id="scoreCircle" style="--angle:0deg">
+          <div class="score-inside"><strong id="percentDisplay">0%</strong><span>правильных ответов</span></div>
+        </div>
+        <div class="result-stats">
+          <div class="stat"><strong id="correctDisplay">0/15</strong><span>правильно</span></div>
+          <div class="stat"><strong id="pointsResult">0</strong><span>очков</span></div>
+          <div class="stat"><strong id="timeDisplay">0:00</strong><span>время</span></div>
+        </div>
+        <p id="recordMessage" style="margin-bottom:20px"></p>
+        <div class="result-buttons">
+          <button class="primary" id="retryBtn">Пройти ещё раз ↻</button>
+          <button class="subtle" id="homeBtn">На главную</button>
+        </div>
+      </div>
+      <details class="review">
+        <summary>Разобрать ответы</summary>
+        <div id="reviewList"></div>
+      </details>
+    </div>
+  </section>
+</main>
+<footer>Знайка · Учись с интересом</footer>
+<script>
+const banks = {
+ easy: [
+  {q:"Какая планета известна как Красная планета?",a:["Венера","Марс","Юпитер","Меркурий"],c:1,e:"Марс выглядит красноватым из-за оксидов железа на поверхности."},
+  {q:"Сколько дней в високосном году?",a:["364","365","366","367"],c:2,e:"В високосном году в феврале 29 дней, поэтому всего 366 дней."},
+  {q:"Какой океан самый большой на Земле?",a:["Атлантический","Индийский","Северный Ледовитый","Тихий"],c:3,e:"Тихий океан — крупнейший и самый глубокий океан планеты."},
+  {q:"Сколько сторон у шестиугольника?",a:["5","6","7","8"],c:1,e:"Приставка «шести-» подсказывает: у шестиугольника шесть сторон."},
+  {q:"Как называется столица Италии?",a:["Милан","Венеция","Рим","Неаполь"],c:2,e:"Рим — столица Италии и один из древнейших городов Европы."},
+  {q:"Какой газ необходим человеку для дыхания?",a:["Кислород","Гелий","Углекислый газ","Водород"],c:0,e:"Кислород нужен клеткам для получения энергии."},
+  {q:"Сколько минут в одном часе?",a:["30","45","60","100"],c:2,e:"В одном часе 60 минут."},
+  {q:"Какое животное называют «кораблём пустыни»?",a:["Лошадь","Верблюд","Слон","Лама"],c:1,e:"Верблюды приспособлены к жизни в засушливых пустынях."},
+  {q:"Какой цвет получится при смешивании синего и жёлтого пигментов?",a:["Красный","Фиолетовый","Зелёный","Оранжевый"],c:2,e:"При смешивании синих и жёлтых красок обычно получается зелёный."},
+  {q:"Сколько месяцев в году?",a:["10","11","12","13"],c:2,e:"В календарном году двенадцать месяцев."},
+  {q:"Как называется замёрзшая вода?",a:["Пар","Лёд","Туман","Роса"],c:1,e:"При замерзании вода превращается в лёд."},
+  {q:"Какой инструмент показывает температуру?",a:["Барометр","Термометр","Компас","Секундомер"],c:1,e:"Термометр измеряет температуру."},
+  {q:"Как называется спутник Земли?",a:["Солнце","Марс","Луна","Фобос"],c:2,e:"Луна — естественный спутник Земли."},
+  {q:"Какое число является чётным?",a:["7","13","21","24"],c:3,e:"Чётные целые числа делятся на 2 без остатка."},
+  {q:"Какое из этих животных — млекопитающее?",a:["Дельфин","Акула","Крокодил","Форель"],c:0,e:"Дельфины дышат воздухом и выкармливают детёнышей молоком."}
+ ],
+ medium: [
+  {q:"Какой химический символ у золота?",a:["Ag","Au","Fe","Go"],c:1,e:"Au происходит от латинского названия золота — aurum."},
+  {q:"Какой материк пересекают все меридианы?",a:["Африка","Евразия","Антарктида","Австралия"],c:2,e:"Все меридианы сходятся на полюсах, поэтому через Антарктиду проходят все меридианы."},
+  {q:"Кто написал роман «1984»?",a:["Рэй Брэдбери","Джордж Оруэлл","Жюль Верн","Олдос Хаксли"],c:1,e:"«1984» — антиутопический роман Джорджа Оруэлла, опубликованный в 1949 году."},
+  {q:"Какова скорость света в вакууме примерно?",a:["30 000 км/с","150 000 км/с","300 000 км/с","1 000 000 км/с"],c:2,e:"Скорость света в вакууме — примерно 299 792 километра в секунду."},
+  {q:"Какой орган вырабатывает инсулин?",a:["Печень","Поджелудочная железа","Почки","Селезёнка"],c:1,e:"Инсулин вырабатывается бета-клетками островков поджелудочной железы."},
+  {q:"В каком году человек впервые высадился на Луну?",a:["1959","1965","1969","1972"],c:2,e:"Аполлон-11 совершил высадку на Луну в июле 1969 года."},
+  {q:"Как называется процесс превращения жидкости в газ?",a:["Конденсация","Испарение","Плавление","Кристаллизация"],c:1,e:"Испарение — переход вещества из жидкого состояния в газообразное."},
+  {q:"Какой язык программирования часто используют для веб-страниц вместе с HTML и CSS?",a:["JavaScript","SQL","Bash","Assembly"],c:0,e:"JavaScript добавляет веб-страницам интерактивность и динамическое поведение."},
+  {q:"Какой художник написал «Звёздную ночь»?",a:["Пабло Пикассо","Клод Моне","Винсент ван Гог","Сальвадор Дали"],c:2,e:"Винсент ван Гог написал «Звёздную ночь» в 1889 году."},
+  {q:"Какое число является простым?",a:["21","27","29","39"],c:2,e:"29 делится только на 1 и само на себя."},
+  {q:"Как называется наука о землетрясениях?",a:["Метеорология","Сейсмология","Экология","Геодезия"],c:1,e:"Сейсмология изучает землетрясения и распространение сейсмических волн."},
+  {q:"Какой витамин организм может синтезировать под действием солнечного света?",a:["Витамин C","Витамин D","Витамин B12","Витамин K"],c:1,e:"Под воздействием UVB-излучения кожа может вырабатывать витамин D."},
+  {q:"Какая страна подарила США Статую Свободы?",a:["Италия","Франция","Испания","Канада"],c:1,e:"Статую Свободы подарила Франция; её открыли в Нью-Йорке в 1886 году."},
+  {q:"Как называется самая твёрдая природная форма углерода?",a:["Графит","Алмаз","Графен","Уголь"],c:1,e:"Алмаз — природная кристаллическая форма углерода с очень высокой твёрдостью."},
+  {q:"Какой прибор используют для измерения атмосферного давления?",a:["Барометр","Гигрометр","Амперметр","Динамометр"],c:0,e:"Барометр измеряет атмосферное давление."}
+ ],
+ hard: [
+  {q:"Какой элемент имеет атомный номер 74?",a:["Осмий","Вольфрам","Рений","Тантал"],c:1,e:"Вольфрам (W) имеет атомный номер 74."},
+  {q:"Как называется граница, за которой ничто не может покинуть чёрную дыру?",a:["Сингулярность","Аккреционный диск","Горизонт событий","Фотонная сфера"],c:2,e:"Горизонт событий — граница, за которой скорость убегания превышает скорость света."},
+  {q:"Какое число является результатом 2 в степени 10?",a:["512","1000","1024","2048"],c:2,e:"2¹⁰ = 1024."},
+  {q:"Кто сформулировал принцип неопределённости в квантовой механике?",a:["Нильс Бор","Вернер Гейзенберг","Макс Планк","Эрвин Шрёдингер"],c:1,e:"Принцип неопределённости связан с именем Вернера Гейзенберга."},
+  {q:"Какой газ составляет наибольшую долю атмосферы Земли?",a:["Кислород","Углекислый газ","Азот","Аргон"],c:2,e:"Азот составляет около 78% сухой атмосферы Земли."},
+  {q:"Как называется деление клетки, при котором образуются половые клетки?",a:["Митоз","Мейоз","Бинарное деление","Митохондриогенез"],c:1,e:"Мейоз уменьшает число наборов хромосом вдвое и участвует в образовании гамет."},
+  {q:"Какой математик доказал теорему о неполноте?",a:["Алан Тьюринг","Курт Гёдель","Давид Гильберт","Бертран Рассел"],c:1,e:"Теоремы о неполноте Курта Гёделя изменили основания математической логики."},
+  {q:"Какой слой Земли является самым толстым?",a:["Земная кора","Мантия","Внешнее ядро","Внутреннее ядро"],c:1,e:"Мантия простирается примерно на 2 900 км и является самым толстым слоем Земли."},
+  {q:"Что измеряется в фарадах?",a:["Электрическое сопротивление","Ёмкость","Мощность","Магнитный поток"],c:1,e:"Фарад — единица электрической ёмкости в системе СИ."},
+  {q:"Как называется эффект изменения частоты волны из-за движения источника или наблюдателя?",a:["Эффект Холла","Эффект Доплера","Эффект Комптона","Фотоэффект"],c:1,e:"Эффект Доплера наблюдается, например, в изменении тона сирены движущейся машины."},
+  {q:"Какая планета Солнечной системы имеет самый короткий год?",a:["Марс","Меркурий","Венера","Земля"],c:1,e:"Меркурий обращается вокруг Солнца примерно за 88 земных суток."},
+  {q:"Какой логический оператор даёт истину только тогда, когда оба условия истинны?",a:["OR","NOT","AND","XOR"],c:2,e:"Логическое AND истинно, только если оба входных значения истинны."},
+  {q:"Как называется переход твёрдого вещества сразу в газ?",a:["Конденсация","Сублимация","Десублимация","Ионизация"],c:1,e:"Сублимация — переход из твёрдого состояния в газ без жидкой фазы."},
+  {q:"Какой учёный ввёл термин «клетка» после наблюдения пробки под микроскопом?",a:["Антони ван Левенгук","Роберт Гук","Луи Пастер","Маттиас Шлейден"],c:1,e:"Роберт Гук описал ячеистую структуру пробки в 1665 году и использовал термин cell."},
+  {q:"Как называется ближайшая к Солнцу точка орбиты небесного тела?",a:["Апогей","Перигелий","Перигей","Афелий"],c:1,e:"Перигелий — ближайшая к Солнцу точка орбиты; афелий — самая дальняя."}
+ ]
+};
+const levelNames={easy:"Лёгкий уровень",medium:"Средний уровень",hard:"Сложный уровень"};
+let level="easy",questions=[],index=0,score=0,correct=0,answersLog=[],startedAt=0,locked=false;
+const $=id=>document.getElementById(id);
+const screens=[$("startScreen"),$("quizScreen"),$("resultScreen")];
+function showScreen(screen){screens.forEach(s=>s.classList.toggle("active",s===screen));window.scrollTo({top:0,behavior:"smooth"});}
+function getRecords(){try{return JSON.parse(localStorage.getItem("znaikaRecords")||"{}")}catch(e){return {}}}
+function saveRecords(r){try{localStorage.setItem("znaikaRecords",JSON.stringify(r))}catch(e){}}
+function renderBest(){const r=getRecords()[level];$("bestDisplay").textContent=r?`${r.score}/150 · ${r.percent}%`:"Пока нет";}
+document.querySelectorAll(".difficulty").forEach(btn=>btn.addEventListener("click",()=>{
+ level=btn.dataset.level;
+ document.querySelectorAll(".difficulty").forEach(b=>{const selected=b===btn;b.classList.toggle("selected",selected);b.setAttribute("aria-pressed",String(selected))});
+ renderBest();
+}));
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a;}
+function startQuiz(){
+ questions=shuffle(banks[level]).map(q=>({...q,a:[...q.a]}));index=0;score=0;correct=0;answersLog=[];startedAt=Date.now();locked=false;
+ $("scoreDisplay").textContent="0";$("levelPill").textContent=levelNames[level];showScreen($("quizScreen"));renderQuestion();
+}
+function renderQuestion(){
+ locked=false;const q=questions[index];
+ $("questionCount").textContent=`ВОПРОС ${index+1} ИЗ ${questions.length}`;
+ $("questionText").textContent=q.q;
+ $("progressFill").style.width=`${index/questions.length*100}%`;
+ $("feedback").className="feedback";$("feedback").textContent="";
+ $("nextBtn").disabled=true;$("nextBtn").textContent=index===questions.length-1?"Результат →":"Далее →";
+ $("pointsHint").textContent=`За правильный ответ: ${level==="easy"?10:level==="medium"?20:30} очков`;
+ const answers=$("answers");answers.innerHTML="";
+ q.a.forEach((text,i)=>{
+  const btn=document.createElement("button");btn.className="answer";
+  const letter=document.createElement("span");letter.className="letter";letter.textContent=String.fromCharCode(65+i);
+  const label=document.createElement("span");label.textContent=text;
+  btn.append(letter,label);btn.addEventListener("click",()=>chooseAnswer(i));answers.append(btn);
+ });
+}
+function chooseAnswer(choice){
+ if(locked)return;locked=true;
+ const q=questions[index],isCorrect=choice===q.c;
+ const points=level==="easy"?10:level==="medium"?20:30;
+ if(isCorrect){correct++;score+=points}
+ answersLog.push({question:q.q,chosen:q.a[choice],right:q.a[q.c],correct:isCorrect,explanation:q.e});
+ [...$("answers").children].forEach((btn,i)=>{btn.disabled=true;if(i===q.c)btn.classList.add("correct");else if(i===choice)btn.classList.add("wrong")});
+ $("scoreDisplay").textContent=score;
+ const feedback=$("feedback");feedback.className=`feedback show ${isCorrect?"good":"bad"}`;
+ feedback.textContent=(isCorrect?"Верно! +"+points+" очков. ":"Не совсем. Правильный ответ: "+q.a[q.c]+". ")+q.e;
+ $("nextBtn").disabled=false;
+}
+function finishQuiz(){
+ const elapsed=Math.floor((Date.now()-startedAt)/1000),percent=Math.round(correct/questions.length*100);
+ const pointsMax=questions.length*(level==="easy"?10:level==="medium"?20:30);
+ $("progressFill").style.width="100%";$("percentDisplay").textContent=percent+"%";
+ $("scoreCircle").style.setProperty("--angle",`${percent*3.6}deg`);
+ $("correctDisplay").textContent=`${correct}/${questions.length}`;$("pointsResult").textContent=`${score}/${pointsMax}`;
+ $("timeDisplay").textContent=`${Math.floor(elapsed/60)}:${String(elapsed%60).padStart(2,"0")}`;
+ let icon,title,message;
+ if(percent>=90){icon="🏆";title="Превосходно!";message="Впечатляющий результат. Ты отлично справился с вопросами!";}
+ else if(percent>=70){icon="⭐";title="Отличная работа!";message="Ты хорошо разбираешься в разных темах. Есть совсем немного до идеала.";}
+ else if(percent>=45){icon="💡";title="Хороший старт!";message="У тебя уже есть база знаний. Посмотри разбор и попробуй ещё раз.";}
+ else{icon="🚀";title="Продолжай учиться!";message="Каждая попытка помогает узнать что-то новое. Попробуй другой уровень или повтори тест."}
+ $("resultIcon").textContent=icon;$("resultTitle").textContent=title;$("resultMessage").textContent=message;
+ const records=getRecords(),old=records[level],isRecord=!old||score>old.score||(score===old.score&&percent>old.percent);
+ if(isRecord){records[level]={score,percent,date:new Date().toISOString()};saveRecords(records);$("recordMessage").textContent="Новый рекорд на этом уровне!";}else{$("recordMessage").textContent=`Твой рекорд на этом уровне: ${old.score} очков (${old.percent}%).`;}
+ $("reviewList").innerHTML="";
+ answersLog.forEach((a,i)=>{const item=document.createElement("div");item.className="review-item";const titleEl=document.createElement("strong");titleEl.textContent=`${i+1}. ${a.question}`;const your=document.createElement("p");your.className=a.correct?"right":"wrong-text";your.textContent=(a.correct?"✓ Твой ответ: ":"✕ Твой ответ: ")+a.chosen;const right=document.createElement("p");right.textContent="Правильный ответ: "+a.right;const explanation=document.createElement("p");explanation.textContent=a.explanation;item.append(titleEl,your,right,explanation);$("reviewList").append(item);});
+ renderBest();showScreen($("resultScreen"));
+}
+$("startBtn").addEventListener("click",startQuiz);
+$("nextBtn").addEventListener("click",()=>{if(!locked)return;if(index<questions.length-1){index++;renderQuestion()}else finishQuiz()});
+$("retryBtn").addEventListener("click",startQuiz);
+$("homeBtn").addEventListener("click",()=>{renderBest();showScreen($("startScreen"))});
+renderBest();
+</script>
+</body>
+</html>
