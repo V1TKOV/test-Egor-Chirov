@@ -19,6 +19,9 @@ jobs:
           python3 - <<'PYTHON'
           import os, base64, io, zipfile
           zipfile.ZipFile(io.BytesIO(base64.b64decode(os.environ['PROJECT_ZIP']))).extractall('.')
+          from pathlib import Path
+          p = Path('ios/HandCube/scripts/build-ipa.sh')
+          p.write_text(p.read_text().replace('lipo -verify_arch arm64 "$APP/HandCube"', 'lipo "$APP/HandCube" -verify_arch arm64'))
           PYTHON
       - name: Install XcodeGen
         run: brew install xcodegen
